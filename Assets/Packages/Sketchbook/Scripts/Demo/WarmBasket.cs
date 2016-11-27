@@ -9,7 +9,7 @@ namespace mattatz.Sketchbook {
 
         public float sphereRadius = 4.5f;
         public float rotationScale = 0.1f;
-        public float rotationSpeed = 20f;
+        public float rotationSpeed = 50f;
         public bool useGravity = false;
 
         List<Warm> strokes;
@@ -18,7 +18,7 @@ namespace mattatz.Sketchbook {
             strokes = new List<Warm>();
 
             for(int i = 0; i < 50; i++) {
-                strokes.Add(new Warm(Random.insideUnitSphere * 0.25f, Color.black, 40));
+                strokes.Add(new Warm(Random.insideUnitSphere * 0.25f, Color.black, 30));
             }
         }
 
@@ -51,9 +51,7 @@ namespace mattatz.Sketchbook {
             });
 
             SetColor(new Color(0.8f, 0.8f, 0.8f, 0.5f));
-            Lights();
-            Fill();
-
+            NoFill();
             DrawSphere(Vector3.zero, Quaternion.LookRotation(Vector3.forward), sphereRadius, 10, 4);
         }
 
@@ -65,7 +63,7 @@ namespace mattatz.Sketchbook {
 
             float offset;
             float decay;
-            float limit = 0.25f;
+            float limit = 0.45f;
             
             public Warm (Vector3 p, Color c, int count) {
                 color = c;
@@ -122,6 +120,8 @@ namespace mattatz.Sketchbook {
                 }
             }
 
+			Quaternion look = Quaternion.LookRotation(Vector3.forward);
+
             public void Draw (WarmBasket s) {
                 s.SetColor(color);
                 for(int i = 1, n = points.Count; i < n; i++) {
@@ -133,7 +133,7 @@ namespace mattatz.Sketchbook {
                 float t = (Mathf.Sin(offset + Time.timeSinceLevelLoad * (decay * 5.0f)) + 1.0f) * 0.5f + 0.5f;
                 t = Mathf.Clamp01(t);
                 t = t * t;
-                s.DrawSphere(points[0], Quaternion.LookRotation(Vector3.forward), limit * 0.25f * t);
+                s.DrawSphere(points[0], look, limit * 0.25f * t);
             }
 
         }

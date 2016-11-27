@@ -34,11 +34,6 @@ namespace mattatz.Sketchbook {
         protected override void Draw() {
             SetColor(Color.black);
             root.Draw(this);
-
-            Lights();
-            Fill();
-            SetColor(new Color(1f, 0f, 0f, 0.5f));
-            DrawBox(Vector3.zero, Quaternion.LookRotation(Vector3.forward), new Vector3(2f, 2f, 2f));
         }
 
         public class Segment {
